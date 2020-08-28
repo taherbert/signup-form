@@ -1,26 +1,46 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import styled from 'styled-components'
+import Button from '@material-ui/core/Button'
+import { useDispatch } from 'react-redux'
+import { showSignup } from './features/signup/signupSlice'
+import SignupModal from './features/signup/SignupModal'
+
+// Using css grid is overkill here, but included as an example
+// because it is my typical "daily driver" for most top-level
+// application layouts
+const OuterContainer = styled.div`
+  display: grid;
+  grid-template-columns: 100vw;
+  grid-template-rows: 100vh;
+  grid-template-areas: 'container';
+`
+
+const ButtonContainer = styled.div`
+  && {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+  }
+`
 
 function App() {
+  const dispatch = useDispatch()
+
+  // Logic for opening signup modal
+  const handleSignupOpen = () => {
+    dispatch(showSignup())
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <OuterContainer>
+      <ButtonContainer>
+        <Button variant='contained' color='primary' onClick={handleSignupOpen}>
+          Sign up
+        </Button>
+      </ButtonContainer>
+      <SignupModal />
+    </OuterContainer>
+  )
 }
 
-export default App;
+export default App
