@@ -1,8 +1,18 @@
 import React from 'react'
+import styled from 'styled-components'
 import Dialog from '@material-ui/core/Dialog'
-import DialogTitle from '@material-ui/core/DialogTitle'
+
 import { useSelector, useDispatch } from 'react-redux'
 import { hideSignup, selectOpen } from './signupSlice'
+import CouponDetails from './CouponDetails'
+import SignupForm from './SignupForm'
+
+const SignupLayout = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: 'coupon form';
+`
 
 export default function SignupModal() {
   const signupOpen = useSelector(selectOpen)
@@ -15,11 +25,15 @@ export default function SignupModal() {
 
   return (
     <Dialog
+      maxWidth='md'
       onClose={handleClose}
       aria-labelledby='signup-modal-title'
       open={signupOpen}
     >
-      <DialogTitle id='signup-modal-title'>This is the modal</DialogTitle>
+      <SignupLayout>
+        <CouponDetails />
+        <SignupForm />
+      </SignupLayout>
     </Dialog>
   )
 }

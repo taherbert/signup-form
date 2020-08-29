@@ -2,8 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import Button from '@material-ui/core/Button'
 import { useDispatch } from 'react-redux'
-import { showSignup } from './features/signup/signupSlice'
-import SignupModal from './features/signup/SignupModal'
+import { showSignup } from 'features/signup/signupSlice'
+import SignupModal from 'features/signup/SignupModal'
 
 // Using css grid is overkill here, but included as an example
 // because it is my typical "daily driver" for most top-level
@@ -26,7 +26,11 @@ const ButtonContainer = styled.div`
 function App() {
   const dispatch = useDispatch()
 
-  // Logic for opening signup modal
+  // Logic for opening signup modal. I typically prefer
+  //  to enclose this logic in its own component-level
+  // function rather than triggering an inline dispatch to
+  // allow for future changes with less refactoring.
+  // e.g. instead of this: onClick={() => dispatch(hideSignup())}
   const handleSignupOpen = () => {
     dispatch(showSignup())
   }

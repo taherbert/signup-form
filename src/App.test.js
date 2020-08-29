@@ -7,7 +7,7 @@ import App from './App'
 // Just one test for demonstration purposes. In a typical
 // application, there would obviously need to be many more.
 
-// Verify the sign up button is being appropriate rendered
+// Verify the sign up button is being appropriately rendered
 test('renders sign up button', () => {
   const { getByText } = render(
     <Provider store={store}>

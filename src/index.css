@@ -1,3 +1,4 @@
+/* Use normalize-css to provide some sensible defaults */
 @import-normalize;
 
 body {
