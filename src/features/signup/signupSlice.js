@@ -1,3 +1,4 @@
+import copy from 'copy-to-clipboard'
 import { createSlice } from '@reduxjs/toolkit'
 
 export const signupSlice = createSlice({
@@ -6,6 +7,7 @@ export const signupSlice = createSlice({
     open: true,
     copied: false,
     email: '',
+    code: '2020CouponCode',
   },
   reducers: {
     showSignup: state => {
@@ -14,20 +16,22 @@ export const signupSlice = createSlice({
     hideSignup: state => {
       state.open = false
     },
-    copy: state => {
+    setCopied: state => {
       state.copied = true
     },
   },
 })
 
-export const { showSignup, hideSignup, copy } = signupSlice.actions
+export const { showSignup, hideSignup, setCopied } = signupSlice.actions
 
 // The function below is called a thunk and allows us to perform async logic. It
 // can be dispatched like a regular action: `dispatch(incrementAsync(10))`. This
 // will call the thunk with the `dispatch` function as the first argument. Async
 // code can then be executed and other actions can be dispatched
-export const copyCode = amount => dispatch => {
-  dispatch(copy())
+export const copyCode = amount => (dispatch, getState) => {
+  const { code } = getState().signup
+  copy(code)
+  dispatch(setCopied())
 }
 
 // Selector for selecting the open value from state
