@@ -1,15 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
-import Dialog from '@material-ui/core/Dialog'
-import IconButton from '@material-ui/core/IconButton'
-import CloseIcon from '@material-ui/icons/Close'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import indigo from '@material-ui/core/colors/indigo'
 import grey from '@material-ui/core/colors/grey'
 
 import { useSelector, useDispatch } from 'react-redux'
-import { selectIsCopied, copyCode } from './signupSlice'
+import { selectIsCopied, selectCode, copyCode } from './signupSlice'
 import Logo from 'components/Logo'
 import postmatesLogo from 'media/postmates.webp'
 
@@ -56,6 +53,7 @@ const CouponCode = styled(Typography)`
     border-top: 2px solid;
     border-bottom: 2px solid;
     border-left: 2px solid;
+    border-right: 2px solid;
     border-top-left-radius: 4px;
     border-bottom-left-radius: 4px;
     padding: 12px;
@@ -75,7 +73,7 @@ const CopyCodeButton = styled(Button)`
     border-bottom-right-radius: 4px;
     border-top-left-radius: 1px;
     border-bottom-left-radius: 1px;
-    border-color: ${p => (p.isCopied ? grey[300] : indigo[500])};
+    border-color: ${p => (p.iscopied ? grey[300] : indigo[500])};
     min-width: 100px;
   }
 `
@@ -83,6 +81,7 @@ const CopyCodeButton = styled(Button)`
 export default function CouponDetails() {
   const dispatch = useDispatch()
   const isCopied = useSelector(selectIsCopied)
+  const code = useSelector(selectCode)
 
   const handleCopyClick = () => {
     dispatch(copyCode())
@@ -99,13 +98,13 @@ export default function CouponDetails() {
         </Title>
       </TitleContainer>
       <CouponCodeContainer>
-        <CouponCode variant='button'>2020CouponCode</CouponCode>
+        <CouponCode variant='button'>{code}</CouponCode>
         <CopyCodeButton
           color='primary'
           variant='contained'
           onClick={handleCopyClick}
           disabled={isCopied}
-          isCopied={isCopied}
+          iscopied={isCopied ? 1 : 0}
         >
           {copyText}
         </CopyCodeButton>

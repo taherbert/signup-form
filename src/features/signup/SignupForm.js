@@ -1,15 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
-import Dialog from '@material-ui/core/Dialog'
 import IconButton from '@material-ui/core/IconButton'
 import CloseIcon from '@material-ui/icons/Close'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
-
-import { useSelector, useDispatch } from 'react-redux'
-import { hideSignup, selectOpen } from './signupSlice'
-import Logo from 'components/Logo'
 import shoppingBag from 'media/shopping-bag.svg'
 
 // css-grid grid isn't necessarily required here, but I

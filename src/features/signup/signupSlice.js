@@ -37,5 +37,6 @@ export const copyCode = amount => (dispatch, getState) => {
 // Selector for selecting the open value from state
 export const selectOpen = state => state.signup.open
 export const selectIsCopied = state => state.signup.copied
+export const selectCode = state => state.signup.code
 
 export default signupSlice.reducer
