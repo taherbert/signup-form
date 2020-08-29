@@ -5,9 +5,11 @@ import IconButton from '@material-ui/core/IconButton'
 import CloseIcon from '@material-ui/icons/Close'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
+import indigo from '@material-ui/core/colors/indigo'
+import grey from '@material-ui/core/colors/grey'
 
 import { useSelector, useDispatch } from 'react-redux'
-import { hideSignup, selectOpen } from './signupSlice'
+import { selectIsCopied, copyCode } from './signupSlice'
 import Logo from 'components/Logo'
 import postmatesLogo from 'media/postmates.webp'
 
@@ -51,30 +53,42 @@ const CouponCodeContainer = styled.div`
 const CouponCode = styled(Typography)`
   && {
     flex: 1 1 0;
-    border-top: 1px solid;
-    border-bottom: 1px solid;
-    border-left: 1px solid;
+    border-top: 2px solid;
+    border-bottom: 2px solid;
+    border-left: 2px solid;
     border-top-left-radius: 4px;
     border-bottom-left-radius: 4px;
-    border-color: grey;
     padding: 12px;
     text-transform: uppercase;
-    color: grey;
+    color: ${indigo[500]};
     letter-spacing: 1px;
     font-weight: 700;
+    text-align: center;
   }
 `
 const CopyCodeButton = styled(Button)`
   && {
     flex: 0 1 auto;
-    border: 1px solid grey;
+    border: 2px solid ${indigo[500]};
     border-radius: 1px;
     border-top-right-radius: 4px;
     border-bottom-right-radius: 4px;
+    border-top-left-radius: 1px;
+    border-bottom-left-radius: 1px;
+    border-color: ${p => (p.isCopied ? grey[300] : indigo[500])};
+    min-width: 100px;
   }
 `
 
 export default function CouponDetails() {
+  const dispatch = useDispatch()
+  const isCopied = useSelector(selectIsCopied)
+
+  const handleCopyClick = () => {
+    dispatch(copyCode())
+  }
+
+  const copyText = isCopied ? 'Copied!' : 'Copy'
   return (
     <CouponDetailsLayout>
       <StyledLogo size='small' />
@@ -86,7 +100,15 @@ export default function CouponDetails() {
       </TitleContainer>
       <CouponCodeContainer>
         <CouponCode variant='button'>2020CouponCode</CouponCode>
-        <CopyCodeButton>Copy</CopyCodeButton>
+        <CopyCodeButton
+          color='primary'
+          variant='contained'
+          onClick={handleCopyClick}
+          disabled={isCopied}
+          isCopied={isCopied}
+        >
+          {copyText}
+        </CopyCodeButton>
       </CouponCodeContainer>
     </CouponDetailsLayout>
   )
