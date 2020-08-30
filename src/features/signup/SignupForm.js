@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import IconButton from '@material-ui/core/IconButton'
 import CloseIcon from '@material-ui/icons/Close'
@@ -6,8 +6,14 @@ import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import shoppingBag from 'media/shopping-bag.svg'
-import { useDispatch } from 'react-redux'
-import { hideSignup } from './signupSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  hideSignup,
+  submitForm,
+  selectSuccess,
+  selectError,
+  selectHelperText,
+} from './signupSlice'
 
 // css-grid grid isn't necessarily required here, but I
 // find it useful to have it in place for ease
@@ -103,9 +109,24 @@ const SubmitButton = styled(Button)`
 `
 
 export default function SignupForm() {
+  // Stored email as local state because the rest of the application
+  // does not need access to this data. This could easily be moved into
+  // Redux, but wanted to include some local state management for
+  // demonstration purposes.
+  const [email, setEmail] = useState('')
+  const hasError = useSelector(selectError)
+  const succeeded = useSelector(selectSuccess)
+  const helperText = useSelector(selectHelperText)
   const dispatch = useDispatch()
+
   const handleClose = () => {
     dispatch(hideSignup())
+  }
+  const handleInput = e => {
+    setEmail(e.target.value)
+  }
+  const handleSubmit = () => {
+    dispatch(submitForm(email))
   }
   return (
     <SignupFormLayout>
@@ -125,19 +146,34 @@ export default function SignupForm() {
         us.
       </Details>
       <InputContainer>
-        <EmailInput
-          fullWidth
-          variant='filled'
-          label='email'
-          type='email'
-          placeholder='Enter your email address'
-        >
-          Input
-        </EmailInput>
+        {succeeded ? (
+          <Typography variant='h6' color='primary'>
+            Thanks for subscribing!
+          </Typography>
+        ) : (
+          <EmailInput
+            fullWidth
+            variant='filled'
+            label='email'
+            type='email'
+            placeholder='Enter your email address'
+            value={email}
+            onChange={handleInput}
+            helperText={helperText}
+            error={hasError}
+          />
+        )}
       </InputContainer>
-      <SubmitButton fullWidth variant='contained' color='secondary'>
-        Subscribe
-      </SubmitButton>
+      {!succeeded && (
+        <SubmitButton
+          fullWidth
+          variant='contained'
+          color='secondary'
+          onClick={handleSubmit}
+        >
+          Subscribe
+        </SubmitButton>
+      )}
     </SignupFormLayout>
   )
 }

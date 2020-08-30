@@ -10,10 +10,8 @@ import { selectIsCopied, selectCode, copyCode } from './signupSlice'
 import Logo from 'components/Logo'
 import postmatesLogo from 'media/postmates.webp'
 
-// For demonstration purposes, we could just as easily do the
-// layout as a series of flexboxes. I personally find this
-// less clear in some cases because it can require additional
-// container elements, but it's not too bad here.
+// Flexbox layout for demonstration purposes. We could just as easily
+// do the layout as css-grid.
 const CouponDetailsLayout = styled.div`
   grid-area: coupon;
   padding: 24px;
