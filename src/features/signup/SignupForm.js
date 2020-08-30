@@ -6,14 +6,16 @@ import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import shoppingBag from 'media/shopping-bag.svg'
+import { useDispatch } from 'react-redux'
+import { hideSignup } from './signupSlice'
 
 // css-grid grid isn't necessarily required here, but I
 // find it useful to have it in place for ease
-// of extensibility in the future and to simplify
-// mobile styles
+// of extensibility in the future and to minimize the
+// number of container elements required.
 const SignupFormLayout = styled.div`
   grid-area: form;
-  padding-bottom: 96px;
+  padding-bottom: 64px;
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 50px 150px auto auto auto auto;
@@ -26,6 +28,12 @@ const SignupFormLayout = styled.div`
     'form-input'
     'form-button';
   background-image: linear-gradient(103deg, #d0f6f6, #d7f6d8);
+
+  @media (max-width: 768px) {
+    grid-row-gap: 16px;
+    padding-bottom: 24px;
+    grid-template-rows: 50px 100px auto auto auto auto;
+  } ;
 `
 
 const ButtonBar = styled.div`
@@ -95,10 +103,14 @@ const SubmitButton = styled(Button)`
 `
 
 export default function SignupForm() {
+  const dispatch = useDispatch()
+  const handleClose = () => {
+    dispatch(hideSignup())
+  }
   return (
     <SignupFormLayout>
       <ButtonBar>
-        <IconButton aria-label='close'>
+        <IconButton aria-label='close' onClick={handleClose}>
           <CloseIcon />
         </IconButton>
       </ButtonBar>
