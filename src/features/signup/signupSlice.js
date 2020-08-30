@@ -109,7 +109,6 @@ export const submitForm = email => async dispatch => {
     dispatch(
       signupError('Unable to subscribe. Are you sure that was a valid email?')
     )
-    console.error(err)
   }
 }
 
