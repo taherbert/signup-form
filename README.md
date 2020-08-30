@@ -12,9 +12,10 @@ In a few areas, I show some of what might be typical in a production environment
 
 ### Running the project locally
 
-Project was bootstrapped using [Create React App](https://github.com/facebook/create-react-app). Scripts for building and running the application are located in the `package.json`. See CRA's [quick start](https://create-react-app.dev/docs/getting-started#quick-start) documentation for detailed instructions. There is a single unit test written as an example. Primary scripts are:
+Project was bootstrapped using [Create React App](https://github.com/facebook/create-react-app). Scripts for building and running the application are located in the `package.json`. See CRA's [quick start](https://create-react-app.dev/docs/getting-started#quick-start) documentation for detailed instructions. There is a single unit test written as an example. Primary scripts (yarn for example, but npm works as well):
 
 ```
+yarn (or npm install)
 yarn start
 yarn test
 yarn build
