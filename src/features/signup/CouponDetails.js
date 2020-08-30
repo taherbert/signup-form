@@ -27,9 +27,16 @@ const TitleContainer = styled.div`
   flex: 0 1 auto;
   display: flex;
   flex-flow: row nowrap;
-  padding: 48px 0;
+  padding-bottom: 24px;
   align-items: center;
   margin-top: 48px;
+`
+
+const Disclaimer = styled(Typography)`
+  && {
+    flex: 0 1 auto;
+    padding-bottom: 24px;
+  }
 `
 
 const VendorImage = styled.img`
@@ -99,6 +106,10 @@ export default function CouponDetails() {
           Save 20% on your next delivery with Postmates!
         </Title>
       </TitleContainer>
+      <Disclaimer>
+        Offer good for purchases of at least $15. Valid only for new or existing
+        Postmates Unlimited members.
+      </Disclaimer>
       <CouponCodeContainer>
         <CouponCode variant='button'>{code}</CouponCode>
         <CopyCodeButton

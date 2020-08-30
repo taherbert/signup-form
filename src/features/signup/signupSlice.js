@@ -9,7 +9,7 @@ import pRetry from 'p-retry'
 export const signupSlice = createSlice({
   name: 'signup',
   initialState: {
-    open: true,
+    open: false,
     copied: false,
     email: '',
     code: '2020CouponCode',
