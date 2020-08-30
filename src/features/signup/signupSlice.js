@@ -1,6 +1,10 @@
 import copy from 'copy-to-clipboard'
 import { createSlice } from '@reduxjs/toolkit'
 
+// A basic slice using redux-toolkit. I prefer this to writing
+// standard, "traditional" redux because it vastly reduces
+// boilerplate (and it's now the "officially" recommended way!)
+// https://redux-toolkit.js.org/
 export const signupSlice = createSlice({
   name: 'signup',
   initialState: {
@@ -15,6 +19,7 @@ export const signupSlice = createSlice({
     },
     hideSignup: state => {
       state.open = false
+      state.copied = false
     },
     setCopied: state => {
       state.copied = true
@@ -24,17 +29,15 @@ export const signupSlice = createSlice({
 
 export const { showSignup, hideSignup, setCopied } = signupSlice.actions
 
-// The function below is called a thunk and allows us to perform async logic. It
-// can be dispatched like a regular action: `dispatch(incrementAsync(10))`. This
-// will call the thunk with the `dispatch` function as the first argument. Async
-// code can then be executed and other actions can be dispatched
+// Thunk for copying code to clipboard and setting appropriate copied state
 export const copyCode = amount => (dispatch, getState) => {
   const { code } = getState().signup
   copy(code)
   dispatch(setCopied())
 }
 
-// Selector for selecting the open value from state
+// Simple selectors for grabbing pieces of state. In more complex applications,
+// we might memoize more complex selectors using createSelector.
 export const selectOpen = state => state.signup.open
 export const selectIsCopied = state => state.signup.copied
 export const selectCode = state => state.signup.code
